@@ -1,3 +1,5 @@
+import { baseURL } from "./config.js";
+
 document
   .getElementById("register-form")
   .addEventListener("submit", async (e) => {

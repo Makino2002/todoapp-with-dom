@@ -3,6 +3,7 @@ const input = document.getElementById("todo-input");
 const list = document.getElementById("todo-list");
 const clearBtn = document.getElementById("clear-completed");
 const filterSelect = document.getElementById("filter-select");
+import { baseURL } from "./config.js";
 
 let todos = JSON.parse(localStorage.getItem("todos")) || [];
 let currentFilter = "all";

@@ -1,5 +1,7 @@
+import { baseURL } from "./config.js";
+
 export async function loadTodos() {
-  const res = await fetch("http://localhost:3000/api/todos", {
+  const res = await fetch(`${baseURL}/api/todos`, {
     headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
   });
   if (!res.ok) throw new Error("Lỗi khi tải công việc");
@@ -7,7 +9,7 @@ export async function loadTodos() {
 }
 
 export async function addTodo(text) {
-  const res = await fetch("http://localhost:3000/api/todos", {
+  const res = await fetch(`${baseURL}/api/todos`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,7 +22,7 @@ export async function addTodo(text) {
 
 // 📁 frontend/scripts/status.js
 export async function toggleComplete(id, completed) {
-  const res = await fetch(`http://localhost:3000/api/todos/${id}`, {
+  const res = await fetch(`${baseURL}/api/todos/${id}`, {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
@@ -32,7 +34,7 @@ export async function toggleComplete(id, completed) {
 }
 
 export async function deleteTodo(id) {
-  const res = await fetch(`http://localhost:3000/api/todos/${id}`, {
+  const res = await fetch(`${baseURL}/api/todos/${id}`, {
     method: "DELETE",
     headers: {
       Authorization: `Bearer ${localStorage.getItem("token")}`,

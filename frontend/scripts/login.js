@@ -2,9 +2,7 @@ const host = window.location.hostname;
 const isLocalhost =
   host === "localhost" || host === "127.0.0.1" || host === "::1";
 
-const baseURL = isLocalhost
-  ? "http://localhost:3000"
-  : "https://todoapp-with-dom.onrender.com";
+import { baseURL } from "../config.js";
 
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -20,7 +18,7 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   const data = await res.json();
   if (res.ok) {
     localStorage.setItem("token", data.token);
-    window.location.href = "/frontend/index.html";
+    window.location.href = "/";
     console.log(window.location.href);
   } else {
     alert(data.error);

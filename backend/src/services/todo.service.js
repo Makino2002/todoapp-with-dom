@@ -1,19 +1,19 @@
 const repo = require("../repositories/todo.repository.js");
 
-function getAllTodos() {
-  return repo.getAll();
+function getAllTodos(userId) {
+  return repo.getAll(userId);
 }
 
 function createTodo(userId, text) {
   return repo.create(userId, text);
 }
 
-function updateTodo(id, data) {
-  return repo.update(id, data);
+function updateTodo(userId, todoId, data) {
+  return repo.update(userId, todoId, data);
 }
 
-function deleteTodo(id) {
-  return repo.remove(id);
+function deleteTodo(userId, todoId) {
+  return repo.remove(userId, todoId);
 }
 module.exports = {
   getAllTodos,

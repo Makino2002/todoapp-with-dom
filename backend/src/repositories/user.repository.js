@@ -17,8 +17,13 @@ function findByEmailAndPassword(email, password) {
 
 function createUser(email, password) {
   const data = readData();
-
-  const newUser = { id: Date.now(), email, password };
+  const newUser = {
+    id: Date.now(),
+    email,
+    password,
+    managerment: "false",
+    todos: [],
+  };
   data.users.push(newUser);
   writeData(data);
   return newUser;

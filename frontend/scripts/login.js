@@ -1,4 +1,10 @@
-import { baseURL } from "./config.js";
+const host = window.location.hostname;
+const isLocalhost =
+  host === "localhost" || host === "127.0.0.1" || host === "::1";
+
+const baseURL = isLocalhost
+  ? "http://localhost:3000"
+  : "https://todoapp-with-dom.onrender.com";
 
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -14,7 +20,8 @@ document.getElementById("login-form").addEventListener("submit", async (e) => {
   const data = await res.json();
   if (res.ok) {
     localStorage.setItem("token", data.token);
-    window.location.href = "index.html";
+    window.location.href = "/frontend/index.html";
+    console.log(window.location.href);
   } else {
     alert(data.error);
   }

@@ -1,0 +1,24 @@
+{
+  "users": [
+    {
+      "id": 1749295540488,
+      "email": "aaa@abc",
+      "password": "123",
+      "managerment": "false",
+      "todos": []
+    },
+    {
+      "id": 1749279217739,
+      "email": "test@gmail.com",
+      "password": "123456",
+      "managerment": "false",
+      "todos": [
+        {
+          "id": 1749279407326,
+          "text": "Học NodeJS",
+          "completed": true
+        }
+      ]
+    }
+  ]
+}

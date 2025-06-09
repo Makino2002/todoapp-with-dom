@@ -12,7 +12,7 @@ jobs:
         shell: powershell
         run: |
           Write-Host "🔧 Building project..."
-          Write-Host "✅ Build successful "
+          Write-Host "✅ Build successful"
 
   test:
     runs-on: self-hosted

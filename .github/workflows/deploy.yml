@@ -12,22 +12,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Install backend dependencies
+      - name: Cài đặt backend
         run: |
           cd backend
           npm install
 
-      - name: Install frontend dependencies (if any)
+      - name: Khởi động lại server Node.js
+        shell: powershell
         run: |
-          if (Test-Path frontend\\package.json) {
-            cd frontend
-            npm install
+          $process = Get-Process node -ErrorAction SilentlyContinue
+          if ($process) {
+            Stop-Process -Name node -Force
+            Write-Host "⛔ Đã dừng tiến trình node.exe"
           } else {
-            Write-Host "✅ Frontend không dùng npm, bỏ qua"
+            Write-Host "✅ Không có tiến trình node đang chạy"
           }
-
-      - name: Restart backend server
-        run: |
-          taskkill /f /im node.exe -ErrorAction SilentlyContinue
-          Write-Host "✅ Đã cố gắng dừng node.exe nếu đang chạy"
-          Start-Process "C:\\Program Files\\nodejs\\node.exe" -ArgumentList "backend\\server.js"
+          Start-Process "C:\\Program Files\\nodejs\\node.exe" -ArgumentList "F:\\todoapp-with-dom\\backend\\server.js"

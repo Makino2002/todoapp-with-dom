@@ -1,4 +1,4 @@
-name: CI/CD to Vagrant VM
+name: CI/CD on My Windows Host
 
 on:
   push:
@@ -6,25 +6,24 @@ on:
 
 jobs:
   deploy:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - name: Pull latest code
+        run: git pull origin main
 
-      - name: Setup SSH Key
-        run: |
-          echo "${{ secrets.SSH_KEY }}" > key.pem
-          chmod 600 key.pem
+      - name: Install backend dependencies
+        run: cd backend && npm install
 
-      - name: Deploy to Vagrant VM
-        env:
-          VM_IP: "192.168.77.10"
+      - name: Install frontend dependencies (if any)
         run: |
-          ssh -o StrictHostKeyChecking=no -i key.pem vagrant@$VM_IP << 'EOF'
-          cd ~/todoapp-with-dom
-          git pull origin main
-          cd backend && npm install
-          pkill -f "node server.js" || true
-          nohup node server.js > ~/todoapp.log 2>&1 &
-          EOF
+          if exist frontend\\package.json (
+            cd frontend && npm install
+          ) else (
+            echo "✅ Frontend không dùng npm, bỏ qua"
+          )
+
+      - name: Restart backend server
+        run: |
+          taskkill /f /im node.exe || echo "Không có tiến trình node đang chạy"
+          start "" "C:\\Program Files\\nodejs\\node.exe" backend\\server.js

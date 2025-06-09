@@ -7,8 +7,10 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
-
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
       - name: Pull latest code
         run: git pull origin main
 

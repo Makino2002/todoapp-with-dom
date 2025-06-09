@@ -7,12 +7,10 @@ on:
 jobs:
   deploy:
     runs-on: self-hosted
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
-      - name: Pull latest code
-        run: git pull origin main
 
       - name: Install backend dependencies
         run: |
@@ -30,5 +28,10 @@ jobs:
 
       - name: Restart backend server
         run: |
-          taskkill /f /im node.exe || Write-Host "Không có tiến trình node đang chạy"
-          start "" "C:\\Program Files\\nodejs\\node.exe" backend\\server.js
+          try {
+            taskkill /f /im node.exe -ErrorAction SilentlyContinue
+            Write-Host "⛔ Đã dừng node.exe"
+          } catch {
+            Write-Host "✅ Không có tiến trình node đang chạy"
+          }
+          Start-Process "C:\\Program Files\\nodejs\\node.exe" -ArgumentList "backend\\server.js"

@@ -11,8 +11,8 @@ jobs:
       - name: Build code
         shell: powershell
         run: |
-          Write-Host "🔧 Building project..."
-          Write-Host "✅ Build successful"
+          Write-Host "Building project"
+          Write-Host "Build successful"
 
   test:
     runs-on: self-hosted
@@ -21,8 +21,8 @@ jobs:
       - name: Test code
         shell: powershell
         run: |
-          Write-Host "🧪 Running tests..."
-          Write-Host "✅ Tests passed"
+          Write-Host "Running tests"
+          Write-Host "Tests passed"
 
   deploy:
     runs-on: self-hosted

@@ -45,15 +45,15 @@ jobs:
             Write-Host "✅ Frontend không dùng npm, bỏ qua"
           }
 
-      - name: Khởi động lại server Node.js
+      - name: Restart backend server
         shell: powershell
         run: |
           $process = Get-Process node -ErrorAction SilentlyContinue
           if ($process) {
             Stop-Process -Name node -Force
-            Write-Host "⛔ Node.js process stopped"
+            Write-Host "Node.js process stopped"
           } else {
-            Write-Host "✅ No node process was running"
+            Write-Host "No node process was running"
           }
 
-          Start-Process "C:\\Program Files\\nodejs\\node.exe" -ArgumentList "F:\\todoapp-with-dom\\backend\\server.js"
+          Start-Process -FilePath "C:\\Program Files\\nodejs\\node.exe" -ArgumentList "F:\\todoapp-with-dom\\backend\\server.js"

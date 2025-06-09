@@ -28,10 +28,6 @@ jobs:
 
       - name: Restart backend server
         run: |
-          try {
-            taskkill /f /im node.exe -ErrorAction SilentlyContinue
-            Write-Host "⛔ Đã dừng node.exe"
-          } catch {
-            Write-Host "✅ Không có tiến trình node đang chạy"
-          }
+          taskkill /f /im node.exe -ErrorAction SilentlyContinue
+          Write-Host "✅ Đã cố gắng dừng node.exe nếu đang chạy"
           Start-Process "C:\\Program Files\\nodejs\\node.exe" -ArgumentList "backend\\server.js"

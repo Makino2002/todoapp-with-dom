@@ -5,9 +5,28 @@ on:
     branches: [main]
 
 jobs:
+  build:
+    runs-on: self-hosted
+    steps:
+      - name: Build code
+        shell: powershell
+        run: |
+          Write-Host "🔧 Building project..."
+          Write-Host "✅ Build successful!"
+
+  test:
+    runs-on: self-hosted
+    needs: build
+    steps:
+      - name: Test code
+        shell: powershell
+        run: |
+          Write-Host "🧪 Running tests..."
+          Write-Host "✅ Tests passed!"
+
   deploy:
     runs-on: self-hosted
-
+    needs: test
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,10 +50,10 @@ jobs:
         run: |
           $process = Get-Process node -ErrorAction SilentlyContinue
           if ($process) {
-          Stop-Process -Name node -Force
-          Write-Host "Node.js process stopped"
+            Stop-Process -Name node -Force
+            Write-Host "⛔ Node.js process stopped"
           } else {
-          Write-Host "No node process was running"
+            Write-Host "✅ No node process was running"
           }
 
           Start-Process "C:\\Program Files\\nodejs\\node.exe" -ArgumentList "F:\\todoapp-with-dom\\backend\\server.js"

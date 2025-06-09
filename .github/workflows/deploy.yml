@@ -13,17 +13,20 @@ jobs:
         run: git pull origin main
 
       - name: Install backend dependencies
-        run: cd backend && npm install
+        run: |
+          cd backend
+          npm install
 
       - name: Install frontend dependencies (if any)
         run: |
-          if exist frontend\\package.json (
-            cd frontend && npm install
-          ) else (
-            echo "✅ Frontend không dùng npm, bỏ qua"
-          )
+          if (Test-Path frontend\\package.json) {
+            cd frontend
+            npm install
+          } else {
+            Write-Host "✅ Frontend không dùng npm, bỏ qua"
+          }
 
       - name: Restart backend server
         run: |
-          taskkill /f /im node.exe || echo "Không có tiến trình node đang chạy"
+          taskkill /f /im node.exe || Write-Host "Không có tiến trình node đang chạy"
           start "" "C:\\Program Files\\nodejs\\node.exe" backend\\server.js

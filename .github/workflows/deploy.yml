@@ -12,11 +12,19 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Cài đặt backend
+      - name: Install backend dependencies
         run: |
           cd backend
           npm install
 
+      - name: Install frontend dependencies (if any)
+        run: |
+          if (Test-Path frontend\\package.json) {
+            cd frontend
+            npm install
+          } else {
+            Write-Host "✅ Frontend không dùng npm, bỏ qua"
+          }
       - name: Khởi động lại server Node.js
         shell: powershell
         run: |
@@ -27,4 +35,5 @@ jobs:
           } else {
             Write-Host "✅ Không có tiến trình node đang chạy"
           }
+
           Start-Process "C:\\Program Files\\nodejs\\node.exe" -ArgumentList "F:\\todoapp-with-dom\\backend\\server.js"
